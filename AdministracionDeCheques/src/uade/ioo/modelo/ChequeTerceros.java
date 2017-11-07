@@ -6,7 +6,7 @@ public class ChequeTerceros extends Cheque {
 
 	private EstadoChequeEnum estadoCheque;
 
-	public ChequeTerceros(int idCheque, Date fechaEmision, double monto, EstadoChequeEnum estadoCheque) {
+	public ChequeTerceros(long idCheque, Date fechaEmision, double monto, EstadoChequeEnum estadoCheque) {
 		super(idCheque, fechaEmision, monto);
 		this.estadoCheque = estadoCheque;
 	}

@@ -4,11 +4,11 @@ import java.util.Date;
 
 public abstract class Cheque {
 
-	private int idCheque;
+	private long idCheque;
 	private Date fechaEmision;
 	private double monto;
 	
-	public Cheque(int idCheque, Date fechaEmision, double monto) {
+	public Cheque(long idCheque, Date fechaEmision, double monto) {
 		super();
 		this.idCheque = idCheque;
 		this.fechaEmision = fechaEmision;
