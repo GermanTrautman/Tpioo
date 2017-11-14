@@ -1,12 +1,16 @@
 package uade.ioo.vista.formularios;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
-public class JFormularioPrincipal extends JFrame {
+import uade.ioo.modelo.AdministradorPagos;
+
+public class JFormularioPrincipal extends JFormularioBase {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,7 +18,8 @@ public class JFormularioPrincipal extends JFrame {
 	private JMenu menuArchivo;
 	private JMenuItem itemChequesRecibidos, itemPagarServicios, itemChequesAVencer, itemReporte, itemSalir;
 
-	public JFormularioPrincipal() {
+	public JFormularioPrincipal(AdministradorPagos modelo) {
+		super(modelo);
 		this.setSize(640, 480);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +55,7 @@ public class JFormularioPrincipal extends JFrame {
 				
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				JFormularioChequesRecibidos formChequesRecibidos = new JFormularioChequesRecibidos(itemChequesRecibidos.getText());
+				JFormularioChequesTerceros formChequesRecibidos = new JFormularioChequesTerceros(getModelo());
 				formChequesRecibidos.setVisible(true);
 			}
 		};

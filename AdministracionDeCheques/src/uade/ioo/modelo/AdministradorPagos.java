@@ -5,21 +5,21 @@ import java.util.List;
 
 public class AdministradorPagos implements IAdministradorDePagos{
 
-	private List<Cheque> cheques;
+	private List<ChequeTerceros> chequeTerceros = new ArrayList<ChequeTerceros>();
 	private Chequera chequera;
 
-	public AdministradorPagos(List<Cheque> cheques, Chequera chequera) {
+	public AdministradorPagos(List<ChequeTerceros> cheques, Chequera chequera) {
 		super();
-		this.cheques = cheques;
+		this.chequeTerceros = cheques;
 		this.chequera = chequera;
 	}
 
-	public List<Cheque> getCheques() {
-		return cheques;
+	public List<ChequeTerceros> getCheques() {
+		return chequeTerceros;
 	}
 
-	public void setCheques(List<Cheque> cheques) {
-		this.cheques = cheques;
+	public void registrarCheque(ChequeTerceros cheque) {
+		this.chequeTerceros.add(cheque);
 	}
 
 	public Chequera getChequera() {
@@ -31,17 +31,19 @@ public class AdministradorPagos implements IAdministradorDePagos{
 	}
 
 	@Override
-	public List<Cheque> obtenerChequesParaPagar(Double monto) {
-		List<Cheque> chequesTemp = new ArrayList<Cheque>();
+	public List<ChequeTerceros> obtenerChequesParaPagar(Double monto) {
+		List<ChequeTerceros> chequesTemp = new ArrayList<ChequeTerceros>();
 		
-		for (int i = 0; i < cheques.size(); i++) {
-
+		for (int i = 0; i < chequeTerceros.size(); i++) {
+			if (chequeTerceros.get(i).getMontoDisponiblePago() >= monto) {
+				chequesTemp.add(chequeTerceros.get(i));
+			}
 		}
-		return null;
+		return chequesTemp;
 	}
 
 	@Override
-	public Cheque generarChequeNuevo(Double monto) {
+	public ChequeTerceros generarChequeNuevo(Double monto) {
 		// TODO Auto-generated method stub
 		return null;
 	}

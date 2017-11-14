@@ -1,14 +1,12 @@
 package uade.ioo.modelo;
 
-import java.util.Date;
-
 public abstract class Cheque {
 
 	private long idCheque;
-	private Date fechaEmision;
+	private String fechaEmision;
 	private double monto;
 	
-	public Cheque(long idCheque, Date fechaEmision, double monto) {
+	public Cheque(long idCheque, String fechaEmision, double monto) {
 		super();
 		this.idCheque = idCheque;
 		this.fechaEmision = fechaEmision;

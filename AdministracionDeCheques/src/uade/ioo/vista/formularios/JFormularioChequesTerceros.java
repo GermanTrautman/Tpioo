@@ -1,6 +1,12 @@
 package uade.ioo.vista.formularios;
 
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.Properties;
+
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -9,21 +15,12 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import uade.ioo.modelo.AdministradorPagos;
 import uade.ioo.modelo.Cheque;
 import uade.ioo.modelo.ChequeTerceros;
-import uade.ioo.modelo.EstadoChequeEnum;
-import uade.ioo.principal.Programa;
-import uade.ioo.vista.comportamiento.DateLabelFormatter;
+import uade.ioo.vista.comportamiento.IVistaChequeTerceros;
 
-import javax.swing.JFormattedTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Properties;
-import java.awt.event.ActionEvent;
-
-public class JFormularioChequesRecibidos extends JFrame {
+public class JFormularioChequesTerceros extends JFormularioBase implements IVistaChequeTerceros {
 
 	private static final long serialVersionUID = 1L;
 	private JFormattedTextField formattedTextFieldNroCheque;
@@ -36,10 +33,10 @@ public class JFormularioChequesRecibidos extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public JFormularioChequesRecibidos(String text) {
+	public JFormularioChequesTerceros(AdministradorPagos modelo) {
+		super(modelo);
 		setSize(420, 240);
 		setLocationRelativeTo(getParent());
-		setTitle(text);
 		getContentPane().setLayout(null);
 
 		lblNroCheque = new JLabel("Nro cheque");
@@ -82,32 +79,43 @@ public class JFormularioChequesRecibidos extends JFrame {
 
 		JButton btnRegistrarCheque = new JButton("Registrar");
 		btnRegistrarCheque.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
-				long idCheque;
-				Date fechaEmision;
-				double monto;
-				String mensaje;
-				try {
-					idCheque = Long.valueOf((String) formattedTextFieldNroCheque.getValue());
-					fechaEmision = new Date(datePickerFechaEmision.getJFormattedTextField().getText());
-					monto = Double.parseDouble(formattedTextFieldMonto.getText());
-					mensaje = "Cheque registrado";
-					
-					Cheque cheque = new ChequeTerceros(idCheque, fechaEmision, monto, EstadoChequeEnum.RECIBIDO);
-					Programa.chequesTerceros.add(cheque);
-					formattedTextFieldNroCheque.setValue(null);
-					datePickerFechaEmision.getJFormattedTextField().setText(null);
-					formattedTextFieldMonto.setValue(null);
-				}catch (Exception ex) {
-					mensaje = "Error";
-				}
-				
-				JOptionPane.showMessageDialog(getParent(), mensaje);
+				registrarCheque();
 			}
+
 		});
+
 		btnRegistrarCheque.setBounds(130, 135, 138, 23);
 		getContentPane().add(btnRegistrarCheque);
 
+	}
+
+	private void registrarCheque() {
+		Cheque cheque;
+		String mensaje;
+		try {
+			cheque = new ChequeTerceros(Long.parseLong( formattedTextFieldNroCheque.getText()),
+					datePickerFechaEmision.getJFormattedTextField().getText(),
+					Double.parseDouble(formattedTextFieldMonto.getText()));
+
+			mensaje = "Cheque registrado";
+
+		} catch (Exception ex) {
+			mensaje = "Error";
+			ex.printStackTrace();
+		} finally {
+
+			formattedTextFieldNroCheque.setValue(null);
+			datePickerFechaEmision.getJFormattedTextField().setText(null);
+			formattedTextFieldMonto.setValue(null);
+		}
+
+		JOptionPane.showMessageDialog(getParent(), mensaje);
+	}
+
+	@Override
+	public void registrarChequeTerceros(ChequeTerceros chequeTerceros) {
+
+		
 	}
 }

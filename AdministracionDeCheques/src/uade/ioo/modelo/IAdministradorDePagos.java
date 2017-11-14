@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IAdministradorDePagos {
 
-	List<Cheque> obtenerChequesParaPagar(Double monto);
+	List<ChequeTerceros> obtenerChequesParaPagar(Double monto);
 	Cheque generarChequeNuevo(Double monto);
 	Double getMontoDisponiblePagos();
 }

@@ -1,14 +1,11 @@
 package uade.ioo.modelo;
 
-import java.util.Date;
-
 public class ChequePropio extends Cheque {
 
-	private EstadoChequeEnum estadoCheque;
+	private final EstadoChequeEnum estadoCheque = EstadoChequeEnum.ENTREGADO;
 
-	public ChequePropio(int idCheque, Date fechaEmision, double monto, EstadoChequeEnum estadoCheque) {
+	public ChequePropio(int idCheque, String fechaEmision, double monto) {
 		super(idCheque, fechaEmision, monto);
-		this.estadoCheque = estadoCheque;
 	}
 
 	@Override
@@ -26,9 +23,4 @@ public class ChequePropio extends Cheque {
 	public EstadoChequeEnum getEstadoCheque() {
 		return estadoCheque;
 	}
-
-	public void setEstadoCheque(EstadoChequeEnum estadoCheque) {
-		this.estadoCheque = estadoCheque;
-	}
-
 }
